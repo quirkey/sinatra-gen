@@ -8,7 +8,9 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
         get_it '/'
       end
       
-      should_respond_with :success
+      should "respond" do
+        assert @response.body
+      end
     end
   end
 

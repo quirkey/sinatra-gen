@@ -7,6 +7,7 @@ require 'sinatra'
 <%- end -%>
 <%- case test_framework -%>
 <%- when 'rspec' -%>
+require 'spec'
 require 'sinatra/test/rspec'
 <%- when 'spec' -%>
 require 'sinatra/test/spec'
