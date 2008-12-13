@@ -69,17 +69,19 @@ EOS
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
       opts.on("-t", "--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
       opts.on("-i", "--init", "Initialize a git repository") {|o| options[:init] = o }
-      opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }      
+      opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
+      opts.on("--test=test_framework", String, "Specify your testing framework (rspec/spec/shoulda/unit). default = unit") {|o| options[:test_framework] = o }
     end
 
     def extract_options
       # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
-      self.vendor   = options[:vendor]
-      self.tiny     = options[:tiny]
-      self.git      = options[:git] || `which git`.strip
-      self.git_init = options[:init]
+      self.vendor         = options[:vendor]
+      self.tiny           = options[:tiny]
+      self.git            = options[:git] || `which git`.strip
+      self.git_init       = options[:init]
+      self.test_framework = options[:test_framework] || 'unit'
     end
 
     def klass_name

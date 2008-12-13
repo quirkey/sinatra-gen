@@ -28,6 +28,9 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_without_options
     run_generator('sinatra_app', [APP_ROOT], sources)
     assert_basic_paths_and_files
+    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
+      assert_match(/def test/, test_contents)
+    end    
   end
 
   def test_generate_app_with_vendor_option
@@ -48,6 +51,52 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_basic_paths_and_files
     assert_directory_exists '.git'
   end
+  
+  def test_generate_app_with_rspect_test_option
+    run_generator('sinatra_app', [APP_ROOT, '--test=rspec'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'test/test_helper.rb' do |helper_contents|
+      assert_match(/sinatra\/test\/rspec/, helper_contents)
+    end
+    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
+      assert_match(/describe/, test_contents)
+    end
+  end
+  
+  def test_generate_app_with_spec_test_option
+    run_generator('sinatra_app', [APP_ROOT, '--test=spec'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'test/test_helper.rb' do |helper_contents|
+      assert_match(/sinatra\/test\/spec/, helper_contents)
+    end
+    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
+      assert_match(/describe/, test_contents)
+    end
+  end
+  
+  def test_generate_app_with_shoulda_test_option
+    run_generator('sinatra_app', [APP_ROOT, '--test=shoulda'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'test/test_helper.rb' do |helper_contents|
+      assert_match(/sinatra\/test\/unit/, helper_contents)
+      assert_match(/shoulda/, helper_contents)
+    end
+    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
+      assert_match(/context/, test_contents)
+    end
+  end
+  
+  def test_generate_app_with_test_unit_option
+    run_generator('sinatra_app', [APP_ROOT, '--test=unit'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'test/test_helper.rb' do |helper_contents|
+      assert_match(/sinatra\/test\/unit/, helper_contents)
+    end
+    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
+      assert_match(/def test/, test_contents)
+    end
+  end
+  
   
   private
   def assert_basic_paths_and_files
