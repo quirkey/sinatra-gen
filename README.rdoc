@@ -12,6 +12,14 @@ For more information on sinatra, check out http://sinatra.rubyforge.org
 sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
 user into any specific frameworks/dev practices.
 
+Run:
+
+  sinatra-gen [appname] [options]
+  
+e.g.
+
+  sinatra-gen mysinatrapp --vendor -i --test=shoulda --views=haml
+
 Options (can also be obtained by running sinatra-gen with no arguments):
 
  -v, --version                    Show the sinatra-gen version number and quit.
@@ -26,7 +34,7 @@ The --tiny option will create no directories. Just an app.rb, a Rakefile, and a 
 
 == ACKNOWLEDGEMENTS:
 
-Big props to the Sinatra developers (http://sinatrarb.heroku.com).
+Big props to the Sinatra developers (http://github.com/bmizerany/sinatra/).
 Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem libraries
 
 == REQUIREMENTS:
