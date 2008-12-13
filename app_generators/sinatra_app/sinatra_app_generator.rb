@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -35,6 +35,8 @@ class SinatraAppGenerator < RubiGen::Base
         m.template 'lib/module.rb.erb', "lib/#{app_name}.rb"
         m.template 'test/test_helper.rb.erb', 'test/test_helper.rb'
         m.template "test/test_app_#{test_framework}.rb.erb", "test/test_#{app_name}.rb"
+        m.template "views/#{view_framework}_index.erb", "views/index.#{view_framework}"
+        m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
       end
       
       if vendor
@@ -72,7 +74,8 @@ EOS
       opts.on("-t", "--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
       opts.on("-i", "--init", "Initialize a git repository") {|o| options[:init] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
-      opts.on("--test=test_framework", String, "Specify your testing framework (rspec/spec/shoulda/unit). default = unit") {|o| options[:test_framework] = o }
+      opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda)") {|o| options[:test_framework] = o }
+      opts.on("--views=view_framework", "Specify your view framework (erb (default)/haml/builder)")  {|o| options[:view_framework] = o }
     end
 
     def extract_options
@@ -84,6 +87,7 @@ EOS
       self.git            = options[:git] || `which git`.strip
       self.git_init       = options[:init]
       self.test_framework = options[:test_framework] || 'unit'
+      self.view_framework = options[:view_framework] || 'erb'
     end
 
     def klass_name

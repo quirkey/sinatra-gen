@@ -13,5 +13,5 @@ set :views,  'views'
 <%- end -%>
 
 get '/' do
-  erb :index
+  <%= view_framework -%> :index
 end

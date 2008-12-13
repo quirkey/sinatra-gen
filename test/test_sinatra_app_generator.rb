@@ -28,6 +28,8 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_without_options
     run_generator('sinatra_app', [APP_ROOT], sources)
     assert_basic_paths_and_files
+    assert_generated_file 'views/layout.erb'
+    assert_generated_file 'views/index.erb'
     assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
       assert_match(/def test/, test_contents)
     end    
@@ -95,6 +97,35 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
       assert_match(/def test/, test_contents)
     end
+  end
+
+  def test_generate_app_with_views_haml_option
+    run_generator('sinatra_app', [APP_ROOT, '--views=erb'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'app.rb' do |app_contents|
+      assert_match(/erb \:index/, app_contents)
+    end
+    assert_generated_file 'views/layout.erb'
+    assert_generated_file 'views/index.erb'
+  end
+  
+  def test_generate_app_with_views_haml_option
+    run_generator('sinatra_app', [APP_ROOT, '--views=haml'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'app.rb' do |app_contents|
+      assert_match(/haml \:index/, app_contents)
+    end
+    assert_generated_file 'views/layout.haml'
+    assert_generated_file 'views/index.haml'
+  end
+
+  def test_generate_app_with_views_builder_option
+    run_generator('sinatra_app', [APP_ROOT, '--views=builder'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'app.rb' do |app_contents|
+      assert_match(/builder \:index/, app_contents)
+    end
+    assert_generated_file 'views/index.builder'
   end
   
   
