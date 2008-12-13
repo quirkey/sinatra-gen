@@ -25,6 +25,7 @@ Options (can also be obtained by running sinatra-gen with no arguments):
  -v, --version                    Show the sinatra-gen version number and quit.
  -d, --vendor                     Extract the latest sinatra to vendor/sinatra
  -t, --tiny                       Only create the minimal files.
+ -s, --scripts                    Install the rubigen scripts (script/generate, script/destroy)
  -i, --init                       Initialize a git repository
      --git /path/to/git           Specify a different path for 'git'
      --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)

@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -27,9 +27,7 @@ class SinatraAppGenerator < RubiGen::Base
       m.template 'config.ru.erb', 'config.ru'
       m.template 'app.rb.erb'   , 'app.rb'
       m.template 'Rakefile.erb' , 'Rakefile'
-      # m.dependency "install_rubigen_scripts", [destination_root, 'sinatra-gen'],
-      #   :shebang => options[:shebang], :collision => :force
-      
+            
       unless tiny
         BASEDIRS.each { |path| m.directory path }
         m.template 'lib/module.rb.erb', "lib/#{app_name}.rb"
@@ -49,6 +47,9 @@ class SinatraAppGenerator < RubiGen::Base
         `#{command}`
       end
       
+      if install_scripts
+        m.dependency "install_rubigen_scripts", [destination_root, 'sinatra-gen'], :shebang => options[:shebang], :collision => :force
+      end
     end
   end
 
@@ -64,15 +65,12 @@ EOS
     def add_options!(opts)
       opts.separator ''
       opts.separator 'Options:'
-      # For each option below, place the default
-      # at the top of the file next to "default_options"
-      # opts.on("-a", "--author=\"Your Name\"", String,
-      #         "Some comment about this option",
-      #         "Default: none") { |options[:author]| }
+      
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
       opts.on("-t", "--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
       opts.on("-i", "--init", "Initialize a git repository") {|o| options[:init] = o }
+      opts.on("-s", "--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
       opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda)") {|o| options[:test_framework] = o }
       opts.on("--views=view_framework", "Specify your view framework (erb (default)/haml/builder)")  {|o| options[:view_framework] = o }
@@ -82,12 +80,13 @@ EOS
       # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
-      self.vendor         = options[:vendor]
-      self.tiny           = options[:tiny]
-      self.git            = options[:git] || `which git`.strip
-      self.git_init       = options[:init]
-      self.test_framework = options[:test_framework] || 'unit'
-      self.view_framework = options[:view_framework] || 'erb'
+      self.vendor          = options[:vendor]
+      self.tiny            = options[:tiny]
+      self.git             = options[:git] || `which git`.strip
+      self.git_init        = options[:init]
+      self.test_framework  = options[:test_framework] || 'unit'
+      self.view_framework  = options[:view_framework] || 'erb'
+      self.install_scripts = options[:scripts] || false
     end
 
     def klass_name

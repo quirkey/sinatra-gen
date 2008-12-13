@@ -128,6 +128,13 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file 'views/index.builder'
   end
   
+  def test_generate_app_with_scripts_option
+    run_generator('sinatra_app', [APP_ROOT, '--scripts'], sources)
+    assert_basic_paths_and_files
+    assert_directory_exists 'script'
+    assert_generated_file 'script/destroy'
+    assert_generated_file 'script/generate'
+  end
   
   private
   def assert_basic_paths_and_files
