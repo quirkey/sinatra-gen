@@ -1,4 +1,5 @@
-== 0.0.1 2008-12-13
+== 0.1.0 2008-12-13
 
 * 1 major enhancement:
   * Initial release
+	* See README.rdoc for more info
