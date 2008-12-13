@@ -43,19 +43,12 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file   'Rakefile'
   end
   
-  def test_generate_app_with_git_options
-    run_generator('sinatra_app', [APP_ROOT, '--git'], sources)
+  def test_generate_app_with_init_option
+    run_generator('sinatra_app', [APP_ROOT, '-i'], sources)
     assert_basic_paths_and_files
     assert_directory_exists '.git'
   end
   
-  def test_generate_app_with_git_and_vendor
-    run_generator('sinatra_app', [APP_ROOT, '--git', '--vendor'], sources)
-    assert_basic_paths_and_files
-    assert_directory_exists '.git'
-    assert_directory_exists 'vendor/sinatra/.git'
-  end
-
   private
   def assert_basic_paths_and_files
     assert_directory_exists 'lib'

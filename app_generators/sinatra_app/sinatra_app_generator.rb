@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -20,7 +20,8 @@ class SinatraAppGenerator < RubiGen::Base
       # Ensure appropriate folder(s) exists
       m.directory ''      
 
-      if git
+      if git_init
+        `cd #{@destination_root} && #{git} init`
       end
       
       m.template 'config.ru.erb', 'config.ru'
@@ -35,8 +36,15 @@ class SinatraAppGenerator < RubiGen::Base
       end
       
       if vendor
-
+        m.directory 'vendor'
+        if git_init || File.exists?(File.join(@destination_root, '.git'))
+          command = "cd #{@destination_root} && #{git} submodule add git://github.com/bmizerany/sinatra.git vendor/sinatra"
+        else
+          command = "cd #{@destination_root} && #{git} clone git://github.com/bmizerany/sinatra.git vendor/sinatra"
+        end
+        `#{command}`
       end
+      
     end
   end
 
@@ -60,21 +68,24 @@ EOS
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
       opts.on("-t", "--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
-      opts.on("-g", "--git", "Initialize a git repository. If 'vendor' is used - will checkout with submodule. **Requires the git gem)") {|o| options[:git] = o }      
+      opts.on("-i", "--init", "Initialize a git repository") {|o| options[:init] = o }
+      opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }      
     end
 
     def extract_options
       # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
-      self.vendor = options[:vendor]
-      self.tiny   = options[:tiny]
-      self.git    = options[:git]
+      self.vendor   = options[:vendor]
+      self.tiny     = options[:tiny]
+      self.git      = options[:git] || `which git`.strip
+      self.git_init = options[:init]
     end
 
     def klass_name
       app_name.classify
     end
+    
 
     # Installation skeleton.  Intermediate directories are automatically
     # created so don't sweat their absence here.
