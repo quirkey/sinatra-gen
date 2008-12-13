@@ -1,48 +1,39 @@
 = sinatra-gen
 
-* FIX (url)
+  http://github.com/quirkey/sinatra-gen
 
 == DESCRIPTION:
 
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
+  sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
+  For more information on sinatra, checkout http://sinatra.rubyforge.org
 
 == SYNOPSIS:
+  
+  sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
+  user into any specific frameworks/dev practices.
+  
+  Options (can also be obtained by running sinatra-gen with no arguments):
+  
+   -v, --version                    Show the sinatra-gen version number and quit.
+   -d, --vendor                     Extract the latest sinatra to vendor/sinatra
+   -t, --tiny                       Only create the minimal files.
+   -i, --init                       Initialize a git repository
+       --git /path/to/git           Specify a different path for 'git'
+       --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
+       --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+  
+  The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
+  
+== ACKNOWLEDGEMENTS:
 
-  FIX (code sample of usage)
+  Big props to the Sinatra developers (http://sinatrarb.heroku.com).
+  Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem libraries
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
-
+  To use the --vendor option, git must be installed.
+  To run the app without using the vendor option, the sinatra gem must be installed.
+  
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
-
-== LICENSE:
-
-(The MIT License)
-
-Copyright (c) 2008 FIXME full name
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  sudo gem install sintra-gen

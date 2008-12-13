@@ -1,7 +1,2 @@
-
-For more information on sinatra-gen, see http://sinatra-gen.rubyforge.org
-
-NOTE: Change this information in PostInstall.txt 
-You can also delete it if you don't want it.
-
-
+For information about sinatra-gen and its options run:
+sinatra-gen
