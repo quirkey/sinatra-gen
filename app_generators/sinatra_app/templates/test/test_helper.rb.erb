@@ -5,4 +5,15 @@ require 'sinatra'
 <%- else -%>
 require 'sinatra'
 <%- end -%>
+<%- case test_framework -%>
+<%- when 'rspec' -%>
+require 'sinatra/test/rspec'
+<%- when 'spec' -%>
+require 'sinatra/test/spec'
+<%- when 'shoulda' -%>
+require 'sinatra/test/unit'
+require 'shoulda'
+<%- when 'unit' -%>
+require 'sinatra/test/unit'
+<%- end -%>
 require File.join(File.dirname(__FILE__), '..', 'app.rb')

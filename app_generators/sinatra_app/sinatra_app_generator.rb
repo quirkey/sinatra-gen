@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -33,6 +33,8 @@ class SinatraAppGenerator < RubiGen::Base
       unless tiny
         BASEDIRS.each { |path| m.directory path }
         m.template 'lib/module.rb.erb', "lib/#{app_name}.rb"
+        m.template 'test/test_helper.rb.erb', 'test/test_helper.rb'
+        m.template "test/test_app_#{test_framework}.rb.erb", "test/test_#{app_name}.rb"
       end
       
       if vendor

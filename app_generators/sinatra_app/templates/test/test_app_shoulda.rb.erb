@@ -1,0 +1,15 @@
+require 'test_helper'
+
+class <%= klass_name -%>Test < Test::Unit::TestCase
+
+  context "<%= klass_name -%>" do
+    context "getting the index" do
+      setup do
+        get_it '/'
+      end
+      
+      should_respond_with :success
+    end
+  end
+
+end
