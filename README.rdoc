@@ -1,39 +1,39 @@
 = sinatra-gen
 
-  http://github.com/quirkey/sinatra-gen
+http://github.com/quirkey/sinatra-gen
 
 == DESCRIPTION:
 
-  sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
-  For more information on sinatra, checkout http://sinatra.rubyforge.org
+sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
+For more information on sinatra, checkout http://sinatra.rubyforge.org
 
 == SYNOPSIS:
   
-  sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
-  user into any specific frameworks/dev practices.
-  
-  Options (can also be obtained by running sinatra-gen with no arguments):
-  
-   -v, --version                    Show the sinatra-gen version number and quit.
-   -d, --vendor                     Extract the latest sinatra to vendor/sinatra
-   -t, --tiny                       Only create the minimal files.
-   -i, --init                       Initialize a git repository
-       --git /path/to/git           Specify a different path for 'git'
-       --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
-       --views=view_framework       Specify your view framework (erb (default)/haml/builder)
-  
-  The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
-  
+sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
+user into any specific frameworks/dev practices.
+
+Options (can also be obtained by running sinatra-gen with no arguments):
+
+ -v, --version                    Show the sinatra-gen version number and quit.
+ -d, --vendor                     Extract the latest sinatra to vendor/sinatra
+ -t, --tiny                       Only create the minimal files.
+ -i, --init                       Initialize a git repository
+     --git /path/to/git           Specify a different path for 'git'
+     --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
+     --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+
+The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
+
 == ACKNOWLEDGEMENTS:
 
-  Big props to the Sinatra developers (http://sinatrarb.heroku.com).
-  Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem libraries
+Big props to the Sinatra developers (http://sinatrarb.heroku.com).
+Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem libraries
 
 == REQUIREMENTS:
 
-  To use the --vendor option, git must be installed.
-  To run the app without using the vendor option, the sinatra gem must be installed.
-  
+To use the --vendor option, git must be installed.
+To run the app without using the vendor option, the sinatra gem must be installed.
+
 == INSTALL:
 
   sudo gem install sintra-gen
