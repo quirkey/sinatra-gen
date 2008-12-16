@@ -4,7 +4,7 @@ require 'rubygems'
 require 'rubigen'
 
 if %w(-v --version).include? ARGV.first
-  require 'sinatra-gen'
+  require File.join(File.dirname(__FILE__), '..', 'lib', 'sinatra-gen')
   puts "#{File.basename($0)} #{SinatraGen::VERSION}"
   exit(0)
 end

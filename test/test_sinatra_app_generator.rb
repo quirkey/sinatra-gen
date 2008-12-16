@@ -48,6 +48,13 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file   'Rakefile'
   end
   
+  def test_generate_app_with_t_option
+    run_generator('sinatra_app', [APP_ROOT, '-t'], sources)
+    assert_generated_file   'config.ru'
+    assert_generated_file   'app.rb'
+    assert_generated_file   'Rakefile'
+  end
+  
   def test_generate_app_with_init_option
     run_generator('sinatra_app', [APP_ROOT, '-i'], sources)
     assert_basic_paths_and_files

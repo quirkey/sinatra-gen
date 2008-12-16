@@ -18,7 +18,7 @@ class SinatraAppGenerator < RubiGen::Base
   def manifest
     record do |m|
       # Ensure appropriate folder(s) exists
-      m.directory ''      
+      m.directory ''
 
       if git_init
         `cd #{@destination_root} && #{git} init`
