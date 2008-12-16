@@ -77,7 +77,7 @@ EOS
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
       opts.on("--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
       opts.on("--init", "Initialize a git repository") {|o| options[:init] = o }
-      opts.on("--cap", "Adds config directory with basic deploy.rb") {|o| options[:cap] = o }
+      opts.on("--cap", "Adds config directory with basic capistrano deploy.rb") {|o| options[:cap] = o }
       opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
       opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda)") {|o| options[:test_framework] = o }

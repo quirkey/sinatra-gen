@@ -22,14 +22,16 @@ e.g.
 
 Options (can also be obtained by running sinatra-gen with no arguments):
 
- -v, --version                    Show the sinatra-gen version number and quit.
- -d, --vendor                     Extract the latest sinatra to vendor/sinatra
-  	 --tiny                       Only create the minimal files.
-  	 --scripts                    Install the rubigen scripts (script/generate, script/destroy)
-  	 --init                       Initialize a git repository
-     --git /path/to/git           Specify a different path for 'git'
-     --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
-     --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+	-v, --version                    Show the sinatra-gen version number and quit.
+	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
+	    --tiny                       Only create the minimal files.
+	    --init                       Initialize a git repository
+	    --cap                        Adds config directory with basic capistrano deploy.rb
+	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
+	    --git /path/to/git           Specify a different path for 'git'
+	    --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
+	    --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+
 
 The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
 

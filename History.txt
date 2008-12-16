@@ -1,3 +1,10 @@
+== 0.1.1 2008-12-16
+
+* 1 major enhancement
+	* added --cap option for generating capistrano recipe
+* 1 minor enhancement
+	* added empty config.yml on generation
+	
 == 0.1.0 2008-12-13
 
 * 1 major enhancement:
