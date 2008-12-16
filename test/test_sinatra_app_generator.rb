@@ -48,17 +48,20 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file   'Rakefile'
   end
   
-  def test_generate_app_with_t_option
-    run_generator('sinatra_app', [APP_ROOT, '-t'], sources)
-    assert_generated_file   'config.ru'
-    assert_generated_file   'app.rb'
-    assert_generated_file   'Rakefile'
-  end
-  
   def test_generate_app_with_init_option
     run_generator('sinatra_app', [APP_ROOT, '-i'], sources)
     assert_basic_paths_and_files
     assert_directory_exists '.git'
+  end
+  
+  def test_generate_app_with_cap_option
+    run_generator('sinatra_app', [APP_ROOT, '--cap'], sources)
+    assert_basic_paths_and_files
+    assert_directory_exists 'config'
+    assert_generated_file   'Capfile'
+    assert_generated_file   'config/deploy.rb' do |deploy_contents|
+      assert_match(/set \:application, "#{app_name}"/, deploy_contents)
+    end
   end
   
   def test_generate_app_with_rspect_test_option
@@ -152,6 +155,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file   'config.ru'
     assert_generated_file   'app.rb'
     assert_generated_file   'Rakefile'
+    assert_generated_file   'config.yml'
     assert_generated_module  "lib/#{app_name}"
   end
     

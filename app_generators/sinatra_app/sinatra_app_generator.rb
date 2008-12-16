@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts, :cap
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -30,6 +30,7 @@ class SinatraAppGenerator < RubiGen::Base
             
       unless tiny
         BASEDIRS.each { |path| m.directory path }
+        m.file     'config.yml', 'config.yml'
         m.template 'lib/module.rb.erb', "lib/#{app_name}.rb"
         m.template 'test/test_helper.rb.erb', 'test/test_helper.rb'
         m.template "test/test_app_#{test_framework}.rb.erb", "test/test_#{app_name}.rb"
@@ -45,6 +46,12 @@ class SinatraAppGenerator < RubiGen::Base
           command = "cd #{@destination_root} && #{git} clone git://github.com/bmizerany/sinatra.git vendor/sinatra"
         end
         `#{command}`
+      end
+      
+      if cap
+        m.directory 'config'
+        m.file 'Capfile', 'Capfile'
+        m.template 'config/deploy.rb.erb', 'config/deploy.rb'
       end
       
       if install_scripts
@@ -68,9 +75,10 @@ EOS
       
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
-      opts.on("-t", "--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
-      opts.on("-i", "--init", "Initialize a git repository") {|o| options[:init] = o }
-      opts.on("-s", "--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
+      opts.on("--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
+      opts.on("--init", "Initialize a git repository") {|o| options[:init] = o }
+      opts.on("--cap", "Adds config directory with basic deploy.rb") {|o| options[:cap] = o }
+      opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
       opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda)") {|o| options[:test_framework] = o }
       opts.on("--views=view_framework", "Specify your view framework (erb (default)/haml/builder)")  {|o| options[:view_framework] = o }
@@ -82,6 +90,7 @@ EOS
       # raw instance variable value.
       self.vendor          = options[:vendor]
       self.tiny            = options[:tiny]
+      self.cap             = options[:cap]
       self.git             = options[:git] || `which git`.strip
       self.git_init        = options[:init]
       self.test_framework  = options[:test_framework] || 'unit'

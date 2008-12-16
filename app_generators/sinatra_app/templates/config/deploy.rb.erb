@@ -1,0 +1,13 @@
+set :application, "<%= app_name %>"
+set :deploy_via, :remote_cache
+set :user, 'SERVER_USER_NAME'
+set :runner, user
+
+set :scm, :git
+set :repository, "git@github.com:GITHUB_USER_NAME/#{application}.git"
+set :branch, 'master'
+set :git_enable_submodules, 1
+set :keep_releases, 3
+set :deploy_to, "/var/www/apps/#{application}"
+
+server "YOUR_DOMAIN", :web, :app, :db, :primary => true
