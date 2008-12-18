@@ -7,7 +7,7 @@ $hoe = Hoe.new('sinatra-gen', SinatraGen::VERSION) do |p|
   p.developer('Aaron Quint', 'aaron@quirkey.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  p.rubyforge_name       = p.name # TODO this is default value
+  p.rubyforge_name       = 'quirkey'
   p.extra_deps         = [
     ['rubigen','>= 1.3.3'],
   ]
