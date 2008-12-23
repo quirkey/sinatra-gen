@@ -4,7 +4,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
 
   <%- unless actions.empty? -%>
   <% actions.each do |meth, path| %>  
-  def test_<%= meth %>_<%= path.gsub([^a-z0-9\_], '') %>_should
+  def test_<%= meth %>_<%= path.to_s.gsub(/[^a-z0-9\_]/, '') %>_should
     <%= meth %>_it '<%= path %>'
   end
 
