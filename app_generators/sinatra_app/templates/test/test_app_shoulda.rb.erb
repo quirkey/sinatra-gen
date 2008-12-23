@@ -3,6 +3,20 @@ require 'test_helper'
 class <%= klass_name -%>Test < Test::Unit::TestCase
 
   context "<%= klass_name -%>" do
+    <%- unless actions.empty? -%>
+    <% actions.each do |meth, path| %>
+    context "<%= meth %> <%= path %>" do
+      setup do
+        <%= meth %>_it '<%= path %>'
+      end
+      
+      should "respond" do
+        assert @response.body
+      end
+    end
+    
+    <%- end -%>
+    <%- else -%>
     context "getting the index" do
       setup do
         get_it '/'
@@ -12,6 +26,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
         assert @response.body
       end
     end
+    <%- end -%>
   end
 
 end

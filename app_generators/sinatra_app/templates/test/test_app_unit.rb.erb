@@ -2,8 +2,17 @@ require 'test_helper'
 
 class <%= klass_name -%>Test < Test::Unit::TestCase
 
+  <%- unless actions.empty? -%>
+  <% actions.each do |meth, path| %>  
+  def test_<%= meth %>_<%= path.gsub([^a-z0-9\_], '') %>_should
+    <%= meth %>_it '<%= path %>'
+  end
+
+  <%- end -%>
+  <%- else -%>  
   def test_my_default
     get_it '/'
   end
+  <%- end -%>
 
 end
