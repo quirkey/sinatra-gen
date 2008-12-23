@@ -12,6 +12,15 @@ set :public, 'public'
 set :views,  'views'
 <%- end -%>
 
+<%- unless actions.empty? -%>
+<%- actions.each do |meth, path| -%>
+<%= meth %> '<%= path %>' do
+
+end
+
+<%- end -%>
+<%- else -%>
 get '/' do
   <%= view_framework -%> :index
 end
+<%- end -%>

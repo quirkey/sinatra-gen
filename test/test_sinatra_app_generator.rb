@@ -132,6 +132,28 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_generated_file 'script/generate'
   end
   
+  def test_generate_app_with_actions_and_no_options
+    run_generator('sinatra_app', [APP_ROOT, 'get:/', 'post:/users/:id', 'put:/users/*'], sources)
+    assert_basic_paths_and_files
+    assert_generated_file 'app.rb' do |app_contents|
+      assert_match(/get '\/' do/, app_contents)
+      assert_match(/post '\/users\/\:id' do/, app_contents)
+      assert_match(/put '\/users\/\*' do/, app_contents)
+    end
+  end
+  
+  def test_generate_app_with_actions_and_options
+    run_generator('sinatra_app', [APP_ROOT, 'get:/', 'post:/users/:id', '--tiny', 'put:/users/*'], sources)
+    assert_generated_file   'config.ru'
+    assert_generated_file   'app.rb'
+    assert_generated_file   'Rakefile'
+    assert_generated_file 'app.rb' do |app_contents|
+      assert_match(/get '\/' do/, app_contents)
+      assert_match(/post '\/users\/\:id' do/, app_contents)
+      assert_match(/put '\/users\/\*' do/, app_contents)
+    end
+  end
+  
   private
   def assert_basic_paths_and_files
     assert_directory_exists 'lib'

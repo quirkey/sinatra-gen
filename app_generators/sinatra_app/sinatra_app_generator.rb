@@ -5,7 +5,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts, :cap
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts, :cap, :actions
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -13,6 +13,7 @@ class SinatraAppGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     self.app_name = base_name
     extract_options
+    parse_actions(args)
   end
 
   def manifest
@@ -102,6 +103,9 @@ EOS
       app_name.classify
     end
     
+    def parse_actions(*action_args)
+      @actions = action_args.flatten.collect { |a| a.split(':', 2) }
+    end
 
     # Installation skeleton.  Intermediate directories are automatically
     # created so don't sweat their absence here.
