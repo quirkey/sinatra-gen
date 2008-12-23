@@ -14,13 +14,41 @@ user into any specific frameworks/dev practices.
 
 Run:
 
-  sinatra-gen [appname] [options]
+  sinatra-gen [appname] [actions] [options]
   
 e.g.
 
-  sinatra-gen mysinatrapp --vendor --init --test=shoulda --views=haml
+  sinatra-gen mysinatrapp get:/ post:/:id --vendor --init --test=shoulda --views=haml
 
-Options (can also be obtained by running sinatra-gen with no arguments):
+=== Actions
+
+!! NEW as of 0.2.0 (12/23/08)
+
+For even faster app development you specify actions to include in your app when generating.
+Actions are written out as
+
+  http_method:path
+
+And are seperated by spaces. For example:
+
+  get:/ post:/:id put:/update/*
+  
+Will be added you your app as:
+
+  get '/' do
+  end
+  
+  post '/:id' do
+  end
+  
+  put '/update/*' do
+  end
+
+It will also generate test skeletons in the test framework of your choosing.
+
+=== Options 
+
+(can also be obtained by running sinatra-gen with no arguments):
 
 	-v, --version                    Show the sinatra-gen version number and quit.
 	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
