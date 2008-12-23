@@ -1,3 +1,9 @@
+== 0.2.0 2008-12-23
+
+* 1 major enhancement
+	* application actions can now be specified 
+		on the command line. See README for more info.
+	
 == 0.1.1 2008-12-16
 
 * 1 major enhancement
