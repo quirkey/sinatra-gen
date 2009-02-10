@@ -9,7 +9,7 @@ $hoe = Hoe.new('sinatra-gen', SinatraGen::VERSION) do |p|
   p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
   p.rubyforge_name       = 'quirkey'
   p.extra_deps         = [
-    ['rubigen','>= 1.3.3'],
+    ['rubigen','>= 1.5.2'],
   ]
   p.extra_dev_deps = [
     ['newgem', ">= #{::Newgem::VERSION}"]

@@ -12,6 +12,7 @@ app_generators/sinatra_app/templates/config.ru.erb
 app_generators/sinatra_app/templates/config.yml
 app_generators/sinatra_app/templates/config/deploy.rb.erb
 app_generators/sinatra_app/templates/lib/module.rb.erb
+app_generators/sinatra_app/templates/test/test_app_bacon.rb.erb
 app_generators/sinatra_app/templates/test/test_app_rspec.rb.erb
 app_generators/sinatra_app/templates/test/test_app_shoulda.rb.erb
 app_generators/sinatra_app/templates/test/test_app_spec.rb.erb

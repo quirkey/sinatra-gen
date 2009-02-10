@@ -1,3 +1,10 @@
+== 0.2.1 2009-02-10
+
+	* Updated tests and templates for Sinatra 0.9
+	* Added support for test/bacon
+	* Fixed errors with latest rubigen where git commands were happening before file generation
+	* Updated rubigen dependency
+	
 == 0.2.0 2008-12-23
 
 * 1 major enhancement
