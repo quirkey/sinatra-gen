@@ -83,7 +83,7 @@ EOS
       opts.on("--cap", "Adds config directory with basic capistrano deploy.rb") {|o| options[:cap] = o }
       opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
-      opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda)") {|o| options[:test_framework] = o }
+      opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda/bacon)") {|o| options[:test_framework] = o }
       opts.on("--views=view_framework", "Specify your view framework (erb (default)/haml/builder)")  {|o| options[:view_framework] = o }
     end
 

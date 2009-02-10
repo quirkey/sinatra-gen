@@ -57,7 +57,7 @@ It will also generate test skeletons in the test framework of your choosing.
 	    --cap                        Adds config directory with basic capistrano deploy.rb
 	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
 	    --git /path/to/git           Specify a different path for 'git'
-	    --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda)
+	    --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda/bacon)
 	    --views=view_framework       Specify your view framework (erb (default)/haml/builder)
 
 
