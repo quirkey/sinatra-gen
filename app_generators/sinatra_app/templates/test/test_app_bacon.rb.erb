@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe '<%= klass_name %>' do
-  
+
   <%- unless actions.empty? -%>
   <% actions.each do |meth, path| %>  
   it 'should <%= meth %> <%= path %>' do
@@ -13,8 +13,8 @@ describe '<%= klass_name %>' do
   <%- else -%>  
   it 'should load the index' do
     get '/'
-    should.be.ok  
+    should.be.ok
   end
   <%- end -%>
-  
 end
+

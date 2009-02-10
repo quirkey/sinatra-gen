@@ -5,14 +5,14 @@ describe '<%= klass_name %>' do
   <%- unless actions.empty? -%>
   <% actions.each do |meth, path| %>  
   it 'should <%= meth %> <%= path %>' do
-    <%= meth %>_it '<%= path %>'
+    <%= meth %> '<%= path %>'
     @response.should be_ok
   end
   
   <%- end -%>
   <%- else -%>  
   it 'should load the index' do
-    get_it '/'
+    get '/'
     @response.should be_ok
   end
   <%- end -%>

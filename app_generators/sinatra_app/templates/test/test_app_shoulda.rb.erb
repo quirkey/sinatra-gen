@@ -7,7 +7,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
     <% actions.each do |meth, path| %>
     context "<%= meth %> <%= path %>" do
       setup do
-        <%= meth %>_it '<%= path %>'
+        <%= meth %> '<%= path %>'
       end
       
       should "respond" do
@@ -19,7 +19,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
     <%- else -%>
     context "getting the index" do
       setup do
-        get_it '/'
+        get '/'
       end
       
       should "respond" do

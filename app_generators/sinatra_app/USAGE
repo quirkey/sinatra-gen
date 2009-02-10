@@ -1,7 +1,7 @@
 Description:
   
   sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
-  For more information on sinatra, check out http://sinatra.rubyforge.org
+  For more information on sinatra, check out http://sinatrarb.com
   
 Usage:
   

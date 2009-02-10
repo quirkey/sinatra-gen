@@ -1,4 +1,3 @@
-require 'rubygems'
 <%- if vendor -%>
 $:.unshift File.join(File.dirname(__FILE__), '..', 'vendor', 'sinatra', 'lib')
 require 'sinatra'
@@ -9,6 +8,8 @@ require 'sinatra'
 <%- when 'rspec' -%>
 require 'spec'
 require 'sinatra/test/rspec'
+<%- when 'bacon' -%>
+require 'sinatra/test/bacon'
 <%- when 'spec' -%>
 require 'sinatra/test/spec'
 <%- when 'shoulda' -%>
@@ -17,4 +18,4 @@ require 'shoulda'
 <%- when 'unit' -%>
 require 'sinatra/test/unit'
 <%- end -%>
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
+require File.join(File.dirname(__FILE__), '..', '<%= app_name %>.rb')
