@@ -3,6 +3,8 @@ class SinatraAppGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
                               Config::CONFIG['ruby_install_name'])
 
+  SINATRA_GIT_URL = 'git://github.com/sinatra/sinatra.git'
+
   default_options :author => nil
 
   attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts, :cap, :actions
@@ -26,7 +28,7 @@ class SinatraAppGenerator < RubiGen::Base
       end
       
       m.template 'config.ru.erb', 'config.ru'
-      m.template 'app.rb.erb'   , 'app.rb'
+      m.template 'app.rb.erb'   , "#{app_name}.rb"
       m.template 'Rakefile.erb' , 'Rakefile'
             
       unless tiny
@@ -42,9 +44,9 @@ class SinatraAppGenerator < RubiGen::Base
       if vendor
         m.directory 'vendor'
         if git_init || File.exists?(File.join(@destination_root, '.git'))
-          command = "cd #{@destination_root} && #{git} submodule add git://github.com/bmizerany/sinatra.git vendor/sinatra"
+          command = "cd #{@destination_root} && #{git} submodule add #{SINATRA_GIT_URL} vendor/sinatra"
         else
-          command = "cd #{@destination_root} && #{git} clone git://github.com/bmizerany/sinatra.git vendor/sinatra"
+          command = "cd #{@destination_root} && #{git} clone #{SINATRA_GIT_URL} vendor/sinatra"
         end
         `#{command}`
       end
