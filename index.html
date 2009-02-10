@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>quirkey/sinatra-gen @ GitHub</title>
+	
+	<style type="text/css">
+		body {
+  		margin-top: 1.0em;
+  		background-color: #cca7a4;
+		  font-family: "helvetica"; 
+  		color: #000000;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #33585b; margin-bottom: 3px; }
+		h1 .small { font-size: 0.4em; }
+		h1 a { text-decoration: none }
+		h2 { font-size: 1.5em; color: #33585b; }
+    h3 { text-align: center; color: #33585b; }
+    a { color: #33585b; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+		pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	</style>
+	
+</head>
+
+<body>
+  <a href="http://github.com/quirkey/sinatra-gen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+  <div id="container">
+
+    <div class="download">
+      <a href="http://github.com/quirkey/sinatra-gen/zipball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+      <a href="http://github.com/quirkey/sinatra-gen/tarball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </div>
+      
+    <h1><a href="http://github.com/quirkey/sinatra-gen">sinatra-gen</a> 
+      <span class="small">by <a href="http://github.com/quirkey">quirkey</a></small></h1>
+
+    <div class="description">
+      sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
+
+For more information on sinatra, check out http://sinatrarb.com
+    </div>
+
+    <p>sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
+user into any specific frameworks/dev practices.
+
+Run:
+
+  sinatra-gen [appname] [actions] [options]
+  
+e.g.
+
+  sinatra-gen mysinatrapp get:/ post:/:id --vendor --init --test=shoulda --views=haml
+
+=== Actions
+
+!! NEW as of 0.2.0 (12/23/08)
+
+For even faster app development you specify actions to include in your app when generating.
+Actions are written out as
+
+  http_method:path
+
+And are seperated by spaces. For example:
+
+  get:/ post:/:id put:/update/*
+  
+Will be added you your app as:
+
+  get '/' do
+  end
+  
+  post '/:id' do
+  end
+  
+  put '/update/*' do
+  end
+
+It will also generate test skeletons in the test framework of your choosing.
+
+=== Options 
+
+(can also be obtained by running sinatra-gen with no arguments):
+
+	-v, --version                    Show the sinatra-gen version number and quit.
+	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
+	    --tiny                       Only create the minimal files.
+	    --init                       Initialize a git repository
+	    --cap                        Adds config directory with basic capistrano deploy.rb
+	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
+	    --git /path/to/git           Specify a different path for 'git'
+	    --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda/bacon)
+	    --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+
+
+The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)</p><h2>Dependencies</h2>
+<p>rubigen > 1.5.2
+
+To use the --vendor option, git must be installed.
+To run the app without using the vendor option, the sinatra gem must be installed.</p>
+<h2>Install</h2>
+<p>  sudo gem install sintra-gen
+
+You can also install directly from github:
+
+  sudo gem install quirkey-sinatra-gen -s http://gems.github.com</p>
+<h2>Authors</h2>
+<p>Aaron Quint (aaron at quirkey dot com)<br/><br/>Big props to the Sinatra developers (http://github.com/bmizerany/sinatra/).<br/>Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem libraries</p>
+<h2>Contact</h2>
+<p>Aaron Quint (aaron at quirkey dot com)<br/>      </p>
+
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/quirkey/sinatra-gen/zipball/master">zip</a> or
+      <a href="http://github.com/quirkey/sinatra-gen/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/quirkey/sinatra-gen</pre>
+    </p>
+      
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/quirkey/sinatra-gen">quirkey/sinatra-gen</a>
+    </div>
+    
+  </div>
+
+  
+</body>
+</html>
