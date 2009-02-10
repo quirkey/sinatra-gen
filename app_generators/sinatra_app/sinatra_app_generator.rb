@@ -1,3 +1,14 @@
+class RubiGen::Commands::Create
+  
+  def run(command, relative_path = '')
+    in_directory = destination_path(relative_path)
+    logger.run command
+    system("cd #{in_directory} && #{command}")
+  end
+  
+end
+
+
 class SinatraAppGenerator < RubiGen::Base
 
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
@@ -24,7 +35,7 @@ class SinatraAppGenerator < RubiGen::Base
       m.directory ''
 
       if git_init
-        `cd #{@destination_root} && #{git} init`
+        m.run("#{git} init")
       end
       
       m.template 'config.ru.erb', 'config.ru'
@@ -42,14 +53,14 @@ class SinatraAppGenerator < RubiGen::Base
       end
       
       if vendor
-        m.directory 'vendor'
-        if git_init || File.exists?(File.join(@destination_root, '.git'))
-          command = "cd #{@destination_root} && #{git} submodule add #{SINATRA_GIT_URL} vendor/sinatra"
-        else
-          command = "cd #{@destination_root} && #{git} clone #{SINATRA_GIT_URL} vendor/sinatra"
+          m.directory 'vendor'
+          if git_init || File.exists?(File.join(@destination_root, '.git'))
+            command = "#{git} submodule add #{SINATRA_GIT_URL} vendor/sinatra"
+          else         
+            command = "#{git} clone #{SINATRA_GIT_URL} vendor/sinatra"
+          end
+          m.run(command)
         end
-        `#{command}`
-      end
       
       if cap
         m.directory 'config'
@@ -95,7 +106,7 @@ EOS
       self.tiny            = options[:tiny]
       self.cap             = options[:cap]
       self.git             = options[:git] || `which git`.strip
-      self.git_init        = options[:init]
+      self.git_init        = options[:init] || false
       self.test_framework  = options[:test_framework] || 'unit'
       self.view_framework  = options[:view_framework] || 'erb'
       self.install_scripts = options[:scripts] || false
