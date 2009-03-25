@@ -18,7 +18,7 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :test_framework, :view_framework, :install_scripts, :cap, :actions
+  attr_accessor :app_name, :vendor, :tiny, :git, :git_init, :heroku, :test_framework, :view_framework, :install_scripts, :cap, :actions
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -36,6 +36,11 @@ class SinatraAppGenerator < RubiGen::Base
 
       if git_init
         m.run("#{git} init")
+      end
+      
+      if heroku
+        m.run("#{git} init")
+        m.run("heroku create #{heroku}")
       end
       
       m.template 'config.ru.erb', 'config.ru'
@@ -91,6 +96,7 @@ EOS
       opts.on("-d", "--vendor", "Extract the latest sinatra to vendor/sinatra") {|o| options[:vendor] = o }
       opts.on("--tiny", "Only create the minimal files.") {|o| options[:tiny] = o }
       opts.on("--init", "Initialize a git repository") {|o| options[:init] = o }
+      opts.on("--heroku=app_name", "Creates a Heroku app (also does 'git init')") { |o| options[:heroku] = o }
       opts.on("--cap", "Adds config directory with basic capistrano deploy.rb") {|o| options[:cap] = o }
       opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
       opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
@@ -107,6 +113,7 @@ EOS
       self.cap             = options[:cap]
       self.git             = options[:git] || `which git`.strip
       self.git_init        = options[:init] || false
+      self.heroku          = options[:heroku]
       self.test_framework  = options[:test_framework] || 'unit'
       self.view_framework  = options[:view_framework] || 'erb'
       self.install_scripts = options[:scripts] || false

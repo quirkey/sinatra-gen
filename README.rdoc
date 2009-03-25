@@ -56,6 +56,7 @@ It will also generate test skeletons in the test framework of your choosing.
 	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
 	    --tiny                       Only create the minimal files.
 	    --init                       Initialize a git repository
+	    --heroku=app_name		 Creates a Heroku app (also does 'git init'
 	    --cap                        Adds config directory with basic capistrano deploy.rb
 	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
 	    --git /path/to/git           Specify a different path for 'git'
