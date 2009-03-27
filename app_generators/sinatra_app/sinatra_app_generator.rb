@@ -83,7 +83,7 @@ class SinatraAppGenerator < RubiGen::Base
       end
       
       if heroku
-        m.run("heroku create #{app_name}")
+        m.run("#{heroku} create #{app_name}")
       end
       
     end
@@ -122,7 +122,7 @@ class SinatraAppGenerator < RubiGen::Base
     self.tiny            = options[:tiny]
     self.cap             = options[:cap]
     self.git             = options[:git] || `which git`.strip
-    self.heroku          = options[:heroku] || `which heroku`.strip
+    self.heroku          = options[:heroku] ? `which heroku`.strip : false
     self.git_init        = options[:init] || !!heroku || false
     self.test_framework  = options[:test_framework] || 'unit'
     self.view_framework  = options[:view_framework] || 'erb'
