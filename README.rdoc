@@ -7,8 +7,6 @@ http://github.com/quirkey/sinatra-gen
 sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
 For more information on sinatra, check out http://sinatrarb.com
 
-!! NOW WITH SUPPORT FOR SINATRA 0.9 (02/10/09)
-
 == SYNOPSIS:
   
 sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
@@ -23,8 +21,6 @@ e.g.
   sinatra-gen mysinatrapp get:/ post:/:id --vendor --init --test=shoulda --views=haml
 
 === Actions
-
-!! NEW as of 0.2.0 (12/23/08)
 
 For even faster app development you specify actions to include in your app when generating.
 Actions are written out as
@@ -56,7 +52,7 @@ It will also generate test skeletons in the test framework of your choosing.
 	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
 	    --tiny                       Only create the minimal files.
 	    --init                       Initialize a git repository
-	    --heroku                     Creates a Heroku app (also does 'git init')
+	    --heroku                     Create a Heroku app (also runs 'git init'). Optionally, specify the path to the heroku bin
 	    --cap                        Adds config directory with basic capistrano deploy.rb
 	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
 	    --git /path/to/git           Specify a different path for 'git'
