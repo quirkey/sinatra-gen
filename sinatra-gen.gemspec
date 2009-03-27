@@ -1,12 +1,14 @@
+# -*- encoding: utf-8 -*-
+
 Gem::Specification.new do |s|
   s.name = %q{sinatra-gen}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Quint"]
-  s.date = %q{2009-02-10}
+  s.date = %q{2009-03-27}
   s.default_executable = %q{sinatra-gen}
-  s.description = %q{sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework. For more information on sinatra, check out http://sinatra.rubyforge.org}
+  s.description = %q{sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework. For more information on sinatra, check out http://sinatrarb.com}
   s.email = ["aaron@quirkey.com"]
   s.executables = ["sinatra-gen"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc"]
@@ -27,15 +29,18 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rubigen>, [">= 1.5.2"])
+      s.add_runtime_dependency(%q<sinatra>, [">= 0.9.0"])
       s.add_development_dependency(%q<newgem>, [">= 1.2.3"])
       s.add_development_dependency(%q<hoe>, [">= 1.8.0"])
     else
       s.add_dependency(%q<rubigen>, [">= 1.5.2"])
+      s.add_dependency(%q<sinatra>, [">= 0.9.0"])
       s.add_dependency(%q<newgem>, [">= 1.2.3"])
       s.add_dependency(%q<hoe>, [">= 1.8.0"])
     end
   else
     s.add_dependency(%q<rubigen>, [">= 1.5.2"])
+    s.add_dependency(%q<sinatra>, [">= 0.9.0"])
     s.add_dependency(%q<newgem>, [">= 1.2.3"])
     s.add_dependency(%q<hoe>, [">= 1.8.0"])
   end
