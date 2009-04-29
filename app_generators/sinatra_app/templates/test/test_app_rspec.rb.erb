@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 
 describe '<%= klass_name %>' do
 
@@ -6,14 +6,14 @@ describe '<%= klass_name %>' do
   <% actions.each do |meth, path| %>  
   it 'should <%= meth %> <%= path %>' do
     <%= meth %> '<%= path %>'
-    @response.should be_ok
+    last_response.should be_ok
   end
   
   <%- end -%>
   <%- else -%>  
   it 'should load the index' do
     get '/'
-    @response.should be_ok
+    last_response.should be_ok
   end
   <%- end -%>
 end

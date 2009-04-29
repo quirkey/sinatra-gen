@@ -1,21 +1,58 @@
 <%- if vendor -%>
 $:.unshift File.join(File.dirname(__FILE__), '..', 'vendor', 'sinatra', 'lib')
-require 'sinatra'
-<%- else -%>
-require 'sinatra'
 <%- end -%>
-<%- case test_framework -%>
+require 'sinatra'
+require 'rack/test'
+
+Sinatra::Default.set(
+  :environment => :test,
+  :run => false,
+  :raise_errors => true,
+  :logging => false
+)
+
+require File.join(File.dirname(__FILE__), '..', '<%= app_name %>.rb')
+
+module TestHelper
+  
+  def app
+    # change to your app class if using the 'classy' style
+    Sinatra::Application.new
+  end
+  
+  def body
+    last_response.body
+  end
+  
+  def status
+    last_response.status
+  end
+  
+  include Rack::Test::Methods
+
+end
+
+<%- case test_framework  -%>
 <%- when 'rspec' -%>
 require 'spec'
-require 'sinatra/test/rspec'
+require 'spec/interop/test'
+
+Spec::Runner.configure do |config|
+  include TestHelper
+end
 <%- when 'bacon' -%>
-require 'sinatra/test/bacon'
+require 'bacon'
+
+Bacon::Context.send(:include, TestHelper)
 <%- when 'spec' -%>
-require 'sinatra/test/spec'
+require 'test/spec'
 <%- when 'shoulda' -%>
-require 'sinatra/test/unit'
+require 'test/unit'
 require 'shoulda'
+
+Test::Unit::TestCase.send(:include, TestHelper)
 <%- when 'unit' -%>
-require 'sinatra/test/unit'
+require 'test/unit'
+
+Test::Unit::TestCase.send(:include, TestHelper)
 <%- end -%>
-require File.join(File.dirname(__FILE__), '..', '<%= app_name %>.rb')

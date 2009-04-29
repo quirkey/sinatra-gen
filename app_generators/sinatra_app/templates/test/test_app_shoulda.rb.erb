@@ -11,7 +11,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
       end
       
       should "respond" do
-        assert @response.body
+        assert body
       end
     end
     
@@ -23,7 +23,7 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
       end
       
       should "respond" do
-        assert @response.body
+        assert body
       end
     end
     <%- end -%>
