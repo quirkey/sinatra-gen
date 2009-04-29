@@ -1,3 +1,8 @@
+== 0.3.0 2009-04-29
+
+* No longer use deprecated Sinatra::Test - depend on Rack::Test and simple helper
+* Changed defaults for test framework and views to bacon and haml respectively based on community feedback/usage.
+
 == 0.2.2 2009-02-10
   
 * Added --heroku option which creates a heroku app [Thanks to Michael Kohl]
