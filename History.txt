@@ -1,3 +1,7 @@
+== 0.2.2 2009-02-10
+  
+* Added --heroku option which creates a heroku app [Thanks to Michael Kohl]
+
 == 0.2.1 2009-02-10
 
 	* Updated tests and templates for Sinatra 0.9
