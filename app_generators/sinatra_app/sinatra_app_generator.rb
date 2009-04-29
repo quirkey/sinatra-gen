@@ -98,7 +98,7 @@ class SinatraAppGenerator < RubiGen::Base
     <<-EOS
     Creates the skeleton for a new sinatra app
 
-    USAGE: #{spec.name} app_name
+    USAGE: #{spec.name} app_name [options] [paths]
     EOS
   end
 
@@ -114,8 +114,8 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--cap", "Adds config directory with basic capistrano deploy.rb") {|o| options[:cap] = o }
     opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
     opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
-    opts.on("--test=test_framework", String, "Specify your testing framework (unit (default)/rspec/spec/shoulda/bacon)") {|o| options[:test_framework] = o }
-    opts.on("--views=view_framework", "Specify your view framework (erb (default)/haml/builder)")  {|o| options[:view_framework] = o }
+    opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
+    opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
   end
 
   def extract_options
@@ -128,8 +128,8 @@ class SinatraAppGenerator < RubiGen::Base
     self.git             = options[:git] || `which git`.strip
     self.heroku          = options[:heroku] ? `which heroku`.strip : false
     self.git_init        = options[:init] || !!heroku || false
-    self.test_framework  = options[:test_framework] || 'unit'
-    self.view_framework  = options[:view_framework] || 'erb'
+    self.test_framework  = options[:test_framework] || 'bacon'
+    self.view_framework  = options[:view_framework] || 'haml'
     self.install_scripts = options[:scripts] || false
   end
 

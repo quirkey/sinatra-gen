@@ -5,4 +5,4 @@ Description:
   
 Usage:
   
-  sinatra-gen [appname] [options]
+  sinatra-gen [appname] [options] [paths]

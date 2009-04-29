@@ -13,17 +13,17 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
 
   def test_generate_app_without_options
     run_generator('sinatra_app', [APP_ROOT], sources)
-    assert_basic_paths_and_files
-    assert_generated_file 'views/layout.erb'
-    assert_generated_file 'views/index.erb'
-    assert_generated_file "test/test_#{app_name}.rb" do |test_contents|
-      assert_match(/def test/, test_contents)
+    assert_basic_paths_and_files('spec')
+    assert_generated_file 'views/layout.haml'
+    assert_generated_file 'views/index.haml'
+    assert_generated_file "spec/#{app_name}_spec.rb" do |test_contents|
+      assert_match(/describe/, test_contents)
     end    
   end
 
   def test_generate_app_with_vendor_option
     run_generator('sinatra_app', [APP_ROOT, '--vendor'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_directory_exists 'vendor/sinatra/lib'
   end
   
@@ -36,13 +36,13 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_init_option
     run_generator('sinatra_app', [APP_ROOT, '-i'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_directory_exists '.git'
   end
 
   def test_generate_app_with_heroku_option
     run_generator('sinatra_app', [APP_ROOT, '--heroku'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_directory_exists '.git'
     assert_generated_file   '.git/config' do |config_contents|
       assert_match(/\[remote "heroku"\]/, config_contents)      
@@ -51,7 +51,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_cap_option
     run_generator('sinatra_app', [APP_ROOT, '--cap'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_directory_exists 'config'
     assert_generated_file   'Capfile'
     assert_generated_file   'config/deploy.rb' do |deploy_contents|
@@ -83,7 +83,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_shoulda_test_option
     run_generator('sinatra_app', [APP_ROOT, '--test=shoulda'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('test')
     assert_generated_file 'test/test_helper.rb' do |helper_contents|
       assert_match(/test\/unit/, helper_contents)
       assert_match(/shoulda/, helper_contents)
@@ -95,7 +95,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_test_unit_option
     run_generator('sinatra_app', [APP_ROOT, '--test=unit'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('test')
     assert_generated_file 'test/test_helper.rb' do |helper_contents|
       assert_match(/test\/unit/, helper_contents)
     end
@@ -117,7 +117,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
 
   def test_generate_app_with_views_haml_option
     run_generator('sinatra_app', [APP_ROOT, '--views=erb'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_generated_file "#{app_name}.rb" do |app_contents|
       assert_match(/erb \:index/, app_contents)
     end
@@ -127,7 +127,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_views_haml_option
     run_generator('sinatra_app', [APP_ROOT, '--views=haml'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_generated_file "#{app_name}.rb" do |app_contents|
       assert_match(/haml \:index/, app_contents)
     end
@@ -137,7 +137,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
 
   def test_generate_app_with_views_builder_option
     run_generator('sinatra_app', [APP_ROOT, '--views=builder'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_generated_file "#{app_name}.rb" do |app_contents|
       assert_match(/builder \:index/, app_contents)
     end
@@ -146,7 +146,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_scripts_option
     run_generator('sinatra_app', [APP_ROOT, '--scripts'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_directory_exists 'script'
     assert_generated_file 'script/destroy'
     assert_generated_file 'script/generate'
@@ -154,7 +154,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   
   def test_generate_app_with_actions_and_no_options
     run_generator('sinatra_app', [APP_ROOT, 'get:/', 'post:/users/:id', 'put:/users/*'], sources)
-    assert_basic_paths_and_files
+    assert_basic_paths_and_files('spec')
     assert_generated_file "#{app_name}.rb" do |app_contents|
       assert_match(/get '\/' do/, app_contents)
       assert_match(/post '\/users\/\:id' do/, app_contents)
@@ -175,7 +175,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   end
   
   private
-  def assert_basic_paths_and_files(spec_or_test = 'test')
+  def assert_basic_paths_and_files(spec_or_test = 'spec')
     assert_directory_exists 'lib'
     assert_directory_exists  spec_or_test
     assert_directory_exists 'public'

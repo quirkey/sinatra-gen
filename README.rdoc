@@ -14,11 +14,11 @@ user into any specific frameworks/dev practices.
 
 Run:
 
-  sinatra-gen [appname] [actions] [options]
+  sinatra-gen [appname] [options] [paths]
   
 e.g.
 
-  sinatra-gen mysinatrapp get:/ post:/:id --vendor --init --test=shoulda --views=haml
+  sinatra-gen mysinatrapp --vendor --init --test=shoulda --views=haml get:/ post:/:id
 
 === Actions
 
@@ -48,16 +48,25 @@ It will also generate test skeletons in the test framework of your choosing.
 
 (can also be obtained by running sinatra-gen with no arguments):
 
-	-v, --version                    Show the sinatra-gen version number and quit.
-	-d, --vendor                     Extract the latest sinatra to vendor/sinatra
-	    --tiny                       Only create the minimal files.
-	    --init                       Initialize a git repository
-	    --heroku                     Create a Heroku app (also runs 'git init'). Optionally, specify the path to the heroku bin
-	    --cap                        Adds config directory with basic capistrano deploy.rb
-	    --scripts                    Install the rubigen scripts (script/generate, script/destroy)
-	    --git /path/to/git           Specify a different path for 'git'
-	    --test=test_framework        Specify your testing framework (unit (default)/rspec/spec/shoulda/bacon)
-	    --views=view_framework       Specify your view framework (erb (default)/haml/builder)
+    -v, --version                    Show the sinatra-gen version number and quit.
+    -d, --vendor                     Extract the latest sinatra to vendor/sinatra
+        --tiny                       Only create the minimal files.
+        --init                       Initialize a git repository
+        --heroku                     Create a Heroku app (also runs 'git init').
+ Optionally, specify the path to the heroku bin
+        --cap                        Adds config directory with basic capistrano deploy.rb
+        --scripts                    Install the rubigen scripts (script/generate, script/destroy)
+        --test=test_framework        Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)
+        --views=view_framework       Specify your view framework (haml (default)/erb/builder)
+General Options:
+    -h, --help                       Show this help message and quit.
+    -p, --pretend                    Run but do not make any changes.
+    -f, --force                      Overwrite files that already exist.
+    -s, --skip                       Skip files that already exist.
+    -q, --quiet                      Suppress normal output.
+    -t, --backtrace                  Debugging: show backtrace on errors.
+    -c, --svn                        Modify files with subversion. (Note: svn must be in path)
+    -g, --git                        Modify files with git. (Note: git must be in path)
 
 
 The --tiny option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
