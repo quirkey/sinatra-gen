@@ -1,0 +1,106 @@
+---
+layout: quirkey_code
+title: sinatra-gen
+github_name: sinatra-gen
+current_version: 0.3.0
+nav:
+  - name: What
+    link: "#what"
+  - name: Why
+    link: "#why"
+  - name: Usage
+    link: "#usage"
+  - name: Options
+    link: "#options"
+  - name: Dependencies
+    link: "#dependencies"
+---
+
+h2(project_name). {{ page.github_name }}
+
+h3(#what). What
+
+sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
+
+For more information on sinatra, check out "Sinatra's homepage.":http://sinatrarb.com
+
+h3(#why). Why
+
+Lots of generated code is sometimes not a great idea, but having a way to simply generate the basic files and structure of an app can save a lot of time and is really useful. A lot of people have different opinions about how to structure a sinatra app since there arent any implicit conventions like in Rails or Merb. With that in mind, I've tried to make sinatra-gen as flexible as possible while still doing a lot of the work for you.
+
+h3(#usage). Usage
+
+h4. Basic
+
+Run:
+
+{% highlight bash %}
+$ sinatra-gen [appname] [actions] [options]
+{% endhighlight %}
+
+e.g.
+
+{% highlight bash %}
+$ sinatra-gen mysinatrapp get:/ post:/:id --vendor --init --test=shoulda --views=haml
+{% endhighlight %}
+
+h4. Actions
+
+For even faster app development you specify actions to include in your app when generating.
+
+Actions are written out as
+
+@http_method:path@
+
+And are seperated by spaces. For example:
+
+@get:/ post:/:id put:/update/*@
+  
+Will be added you your app as:
+
+{% highlight ruby %}
+
+  get '/' do
+  end
+  
+  post '/:id' do
+  end
+  
+  put '/update/*' do
+  end
+
+{% endhighlight %}
+
+It will also generate test skeletons in the test framework of your choosing.
+
+h3(#options). Options
+
+(can also be obtained by running sinatra-gen with no arguments):
+
+{% highlight bash %}
+    -v, --version                    Show the sinatra-gen version number and quit.
+    -d, --vendor                     Extract the latest sinatra to vendor/sinatra
+        --tiny                       Only create the minimal files.
+        --init                       Initialize a git repository
+        --heroku                     Create a Heroku app (also runs 'git init').
+ Optionally, specify the path to the heroku bin
+        --cap                        Adds config directory with basic capistrano deploy.rb
+        --scripts                    Install the rubigen scripts (script/generate, script/destroy)
+        --test=test_framework        Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)
+        --views=view_framework       Specify your view framework (haml (default)/erb/builder)
+{% endhighlight %}
+
+The @--tiny@ option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
+
+h3(#dependencies). Dependencies
+
+sinatra-gen requires:
+
+* rubygems >= 1.3.1
+* rubigen >= 1.5.2
+* sinatra >= 0.9.1
+* rack-test >= 0.1.0
+
+If you want to use the @--init@ option, you need to have git installed and on your path.
+
+To use the @--heroku@ option you need the heroku gem as well as a "heroku account.":http://www.heroku.com
