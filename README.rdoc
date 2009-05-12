@@ -83,7 +83,7 @@ To run the app without using the vendor option, the sinatra gem must be installe
 
 == INSTALL:
 
-  sudo gem install sintra-gen
+  sudo gem install sinatra-gen
 
 You can also install directly from github:
 
