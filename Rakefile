@@ -9,7 +9,7 @@ $hoe = Hoe.new('sinatra-gen', SinatraGen::VERSION) do |p|
   p.rubyforge_name       = 'quirkey'
   p.extra_deps         = [
     ['rubigen','>= 1.5.2'],
-    ['sinatra', '>= 0.9.0'],
+    ['sinatra', '>= 0.9.2'],
     ['rack-test', '>= 0.1.0']
   ]
   p.extra_dev_deps = [
