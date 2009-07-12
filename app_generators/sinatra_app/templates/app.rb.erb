@@ -8,8 +8,7 @@ require 'sinatra'
 <%- unless tiny -%>
 require File.join(File.dirname(__FILE__), 'lib', '<%= app_name %>')
 
-set :public, 'public'
-set :views,  'views'
+set :root, File.dirname(__FILE__)
 <%- end -%>
 
 <%- unless actions.empty? -%>
