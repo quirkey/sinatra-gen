@@ -59,7 +59,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     end
   end
   
-  def test_generate_app_with_rspect_test_option
+  def test_generate_app_with_rspec_test_option
     run_generator('sinatra_app', [APP_ROOT, '--test=rspec'], sources)
     assert_basic_paths_and_files('spec')
     assert_generated_file 'spec/spec_helper.rb' do |helper_contents|
@@ -170,6 +170,18 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
       assert_match(/get '\/' do/, app_contents)
       assert_match(/post '\/users\/\:id' do/, app_contents)
       assert_match(/put '\/users\/\*' do/, app_contents)
+    end
+  end
+  
+  def test_generate_app_with_middleware
+    run_generator('sinatra_app', [APP_ROOT, "--middleware", "rack/flash,Rack::Cache"], sources)
+    assert_generated_file   'config.ru'
+    assert_generated_file   'Rakefile'
+    assert_generated_file "lib/#{app_name}.rb" do |app_contents|
+      assert_match(/require \'rack\/flash\'/, app_contents)
+      assert_match(/require \'rack\/cache\'/, app_contents)
+      assert_match(/use Rack::Flash/, app_contents)
+      assert_match(/use Rack::Cache/, app_contents)
     end
   end
   

@@ -28,7 +28,8 @@ class SinatraAppGenerator < RubiGen::Base
                 :view_framework, 
                 :install_scripts, 
                 :cap, 
-                :actions
+                :actions,
+                :middleware
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -117,6 +118,7 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
     opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
     opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
+    opts.on("--middleware=rack-middleware", Array, "Specify Rack Middleware to be required and included (comma delimited)") {|o| options[:middleware] = o }
   end
 
   def extract_options
@@ -132,6 +134,7 @@ class SinatraAppGenerator < RubiGen::Base
     self.test_framework  = options[:test_framework] || 'bacon'
     self.view_framework  = options[:view_framework] || 'haml'
     self.install_scripts = options[:scripts] || false
+    self.middleware      = options[:middleware] ? options[:middleware].reject {|m| m.blank? } : []
   end
 
   def klass_name

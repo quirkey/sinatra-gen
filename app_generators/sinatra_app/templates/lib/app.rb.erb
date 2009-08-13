@@ -6,6 +6,9 @@ require 'sinatra'
 require 'sinatra'
 <%- end -%>
 require '<%= view_framework %>'
+<%- middleware.each do |m| -%>
+require '<%= m.to_s.underscore %>'
+<%- end -%>
 
 <%- if tiny -%>
 APP_ROOT = File.expand_path(File.dirname(__FILE__))
@@ -31,8 +34,11 @@ end
 <%- else -%>
 class <%= klass_name -%> < Sinatra::Application
   
-  set :root, APP_ROOT
-  
+  set :root, APP_ROOT  
+  <%- middleware.each do |m| -%>
+  use <%= m.to_s.classify %>
+  <%- end -%>
+
   <%- unless actions.empty? -%>
   <%- actions.each do |meth, path| -%>
   <%= meth %> '<%= path %>' do
