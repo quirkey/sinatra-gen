@@ -1,16 +1,18 @@
 require 'rubygems'
-<%- if tiny -%>
-APP_ROOT = File.expand_path(File.dirname(__FILE__))
-<%- else -%>
-APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-<%- end -%>
-
 <%- if vendor -%>
 $:.unshift File.join(APP_ROOT, 'vendor', 'sinatra', 'lib')
 require 'sinatra'
 <%- else -%>
 require 'sinatra'
 <%- end -%>
+require '<%= view_framework %>'
+
+<%- if tiny -%>
+APP_ROOT = File.expand_path(File.dirname(__FILE__))
+<%- else -%>
+APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+<%- end -%>
+
 <%- if tiny -%>
 set :root, APP_ROOT
 
