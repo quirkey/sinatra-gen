@@ -1,3 +1,12 @@
+== 0.4.0 2009-08-13
+
+* Unless --tiny is specified generate an app that < Sinatra::Application
+* Added --vegas/--bin option for generating an executable using Vegas
+* Add --middleware option. e.g --middleware rack/flash,Rack::Cache
+* Fix deprecations:
+  * Require the view framework as that isn't explicit in sinatra anymore
+  * Fix config.ru deprecations
+
 == 0.3.0 2009-04-29
 
 * No longer use deprecated Sinatra::Test - depend on Rack::Test and simple helper

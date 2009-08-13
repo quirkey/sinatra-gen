@@ -7,11 +7,11 @@ app_generators/sinatra_app/USAGE
 app_generators/sinatra_app/sinatra_app_generator.rb
 app_generators/sinatra_app/templates/Capfile
 app_generators/sinatra_app/templates/Rakefile.erb
-app_generators/sinatra_app/templates/app.rb.erb
 app_generators/sinatra_app/templates/config.ru.erb
+app_generators/sinatra_app/templates/bin/app.erb
 app_generators/sinatra_app/templates/config.yml
 app_generators/sinatra_app/templates/config/deploy.rb.erb
-app_generators/sinatra_app/templates/lib/module.rb.erb
+app_generators/sinatra_app/templates/lib/app.rb.erb
 app_generators/sinatra_app/templates/test/test_app_bacon.rb.erb
 app_generators/sinatra_app/templates/test/test_app_rspec.rb.erb
 app_generators/sinatra_app/templates/test/test_app_shoulda.rb.erb
