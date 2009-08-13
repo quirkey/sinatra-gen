@@ -9,7 +9,7 @@ For more information on sinatra, check out http://sinatrarb.com
 
 == SYNOPSIS:
   
-sinatra-gen has a bunch of different options (based loosley on merb-gen) to try to not lock the 
+sinatra-gen has a bunch of different options (based looseley on merb-gen) to try to not lock the 
 user into any specific frameworks/dev practices.
 
 Run:
@@ -20,6 +20,8 @@ e.g.
 
   sinatra-gen mysinatrapp --vendor --init --test=shoulda --views=haml get:/ post:/:id
 
+! Note: As of version 0.4.0 by default the sinatra app is placed in lib/appname.rb and is a subclass of Sinatra::Application. If you want 'classic' style apps (no class/module) use the --tiny option.
+
 === Actions
 
 For even faster app development you specify actions to include in your app when generating.
@@ -27,7 +29,7 @@ Actions are written out as
 
   http_method:path
 
-And are seperated by spaces. For example:
+And are separated by spaces. For example:
 
   get:/ post:/:id put:/update/*
   
@@ -44,6 +46,22 @@ Will be added you your app as:
 
 It will also generate test skeletons in the test framework of your choosing.
 
+=== Middleware
+
+You can specify middleware to include by passing the filename(s) or class name(s), seperated by commas.
+  
+  sinatra-gen myapp --middleware=rack/flash,Rack::Cache
+  
+Will place both the 'require' and 'use' statements in your app.
+
+  require 'rack/flash'
+  require 'rack/cache'
+  
+  #...
+  
+  use Rack::Flash
+  use Rack::Cache
+
 === Options 
 
 (can also be obtained by running sinatra-gen with no arguments):
@@ -58,6 +76,8 @@ It will also generate test skeletons in the test framework of your choosing.
         --scripts                    Install the rubigen scripts (script/generate, script/destroy)
         --test=test_framework        Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)
         --views=view_framework       Specify your view framework (haml (default)/erb/builder)
+        --middleware=rack-middleware Specify Rack Middleware to be required and included (comma delimited)
+        --vegas, --bin=[bin_name]    Create an executable bin using Vegas. Pass an optional bin_name
 General Options:
     -h, --help                       Show this help message and quit.
     -p, --pretend                    Run but do not make any changes.
@@ -78,7 +98,10 @@ Also, thanks to Dr. Nic (http://github.com/drnic) for the Rubigen and Newgem lib
 
 == REQUIREMENTS:
 
-To use the --vendor option, git must be installed.
+To use the --vendor option, git must be installed. 
+To use the --bin/vegas option Vegas is required (sudo gem install vegas). 
+To use the --heroku option, a Heroku account and the heroku gem is required (sudo gem install heroku).
+
 To run the app without using the vendor option, the sinatra gem must be installed.
 
 == INSTALL:
