@@ -115,10 +115,10 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     end
   end
 
-  def test_generate_app_with_views_haml_option
+  def test_generate_app_with_views_erb_option
     run_generator('sinatra_app', [APP_ROOT, '--views=erb'], sources)
     assert_basic_paths_and_files('spec')
-    assert_generated_file "#{app_name}.rb" do |app_contents|
+    assert_generated_file "lib/#{app_name}.rb" do |app_contents|
       assert_match(/erb \:index/, app_contents)
     end
     assert_generated_file 'views/layout.erb'
@@ -128,7 +128,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_with_views_haml_option
     run_generator('sinatra_app', [APP_ROOT, '--views=haml'], sources)
     assert_basic_paths_and_files('spec')
-    assert_generated_file "#{app_name}.rb" do |app_contents|
+    assert_generated_file "lib/#{app_name}.rb" do |app_contents|
       assert_match(/haml \:index/, app_contents)
     end
     assert_generated_file 'views/layout.haml'
@@ -138,7 +138,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_with_views_builder_option
     run_generator('sinatra_app', [APP_ROOT, '--views=builder'], sources)
     assert_basic_paths_and_files('spec')
-    assert_generated_file "#{app_name}.rb" do |app_contents|
+    assert_generated_file "lib/#{app_name}.rb" do |app_contents|
       assert_match(/builder \:index/, app_contents)
     end
     assert_generated_file 'views/index.builder'
@@ -155,7 +155,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_with_actions_and_no_options
     run_generator('sinatra_app', [APP_ROOT, 'get:/', 'post:/users/:id', 'put:/users/*'], sources)
     assert_basic_paths_and_files('spec')
-    assert_generated_file "#{app_name}.rb" do |app_contents|
+    assert_generated_file "lib/#{app_name}.rb" do |app_contents|
       assert_match(/get '\/' do/, app_contents)
       assert_match(/post '\/users\/\:id' do/, app_contents)
       assert_match(/put '\/users\/\*' do/, app_contents)
@@ -165,7 +165,6 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_with_actions_and_options
     run_generator('sinatra_app', [APP_ROOT, 'get:/', 'post:/users/:id', '--tiny', 'put:/users/*'], sources)
     assert_generated_file   'config.ru'
-    assert_generated_file   "#{app_name}.rb"
     assert_generated_file   'Rakefile'
     assert_generated_file "#{app_name}.rb" do |app_contents|
       assert_match(/get '\/' do/, app_contents)
@@ -181,10 +180,9 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     assert_directory_exists 'public'
     assert_directory_exists 'views'
     assert_generated_file   'config.ru'
-    assert_generated_file   "#{app_name}.rb"
     assert_generated_file   'Rakefile'
     assert_generated_file   'config.yml'
-    assert_generated_module  "lib/#{app_name}"
+    assert_generated_class  "lib/#{app_name}"
   end
     
   

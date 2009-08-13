@@ -1,2 +1,4 @@
 tmp/*
 pkg*
+_layouts
+_site

@@ -49,7 +49,6 @@ class SinatraAppGenerator < RubiGen::Base
       end      
 
       m.template 'config.ru.erb', 'config.ru'
-      m.template 'app.rb.erb'   , "#{app_name}.rb"
       m.template 'Rakefile.erb' , 'Rakefile'
       
       test_dir = (tests_are_specs? ? 'spec' : 'test')
@@ -58,12 +57,14 @@ class SinatraAppGenerator < RubiGen::Base
         BASEDIRS.each { |path| m.directory path }
         m.directory test_dir
         m.file     'config.yml', 'config.yml'
-        m.template 'lib/module.rb.erb', "lib/#{app_name}.rb"
+        m.template 'lib/app.rb.erb', "lib/#{app_name}.rb"
         m.template 'test/test_helper.rb.erb', "#{test_dir}/#{test_dir}_helper.rb"
         m.template "test/test_app_#{test_framework}.rb.erb", 
                    "#{test_dir}/#{(tests_are_specs? ? "#{app_name}_spec" : "test_#{app_name}")}.rb"
         m.template "views/#{view_framework}_index.erb", "views/index.#{view_framework}"
         m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
+      else
+        m.template "lib/app.rb.erb", "#{app_name}.rb"
       end
 
       if vendor
@@ -135,6 +136,10 @@ class SinatraAppGenerator < RubiGen::Base
 
   def klass_name
     app_name.classify
+  end
+
+  def app_klass
+    tiny ? "Sinatra::Application" : klass_name
   end
 
   def parse_actions(*action_args)

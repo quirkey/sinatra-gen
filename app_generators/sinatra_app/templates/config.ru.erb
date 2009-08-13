@@ -1,8 +1,8 @@
 # To use with thin 
 #  thin start -p PORT -R config.ru
 
-require File.join(File.dirname(__FILE__), '<%= app_name %>.rb')
+require File.join(File.dirname(__FILE__), <%- unless tiny -%>'lib', <%- end -%>'<%= app_name %>.rb')
 
 disable :run
 set :environment, :production
-run Sinatra::Application
+run <%= app_klass -%>
