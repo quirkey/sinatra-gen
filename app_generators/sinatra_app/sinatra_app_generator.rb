@@ -106,7 +106,7 @@ class SinatraAppGenerator < RubiGen::Base
     <<-EOS
     Creates the skeleton for a new sinatra app
 
-    USAGE: #{spec.name} app_name [options] [paths]
+    USAGE: sinatra-gen app_name [options] [paths]
     EOS
   end
 
