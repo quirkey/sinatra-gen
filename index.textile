@@ -2,7 +2,7 @@
 layout: quirkey_code
 title: sinatra-gen
 github_name: sinatra-gen
-current_version: 0.3.0
+current_version: 0.4.0
 nav:
   - name: What
     link: "#what"
@@ -88,6 +88,8 @@ h3(#options). Options
         --scripts                    Install the rubigen scripts (script/generate, script/destroy)
         --test=test_framework        Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)
         --views=view_framework       Specify your view framework (haml (default)/erb/builder)
+        --middleware=rack-middleware Specify Rack Middleware to be required and included (comma delimited)
+        --vegas, --bin=[bin_name]    Create an executable bin using Vegas. Pass an optional bin_name
 {% endhighlight %}
 
 The @--tiny@ option will create no directories. Just an app.rb, a Rakefile, and a config.ru (Rackup file)
