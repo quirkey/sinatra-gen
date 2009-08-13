@@ -185,6 +185,22 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     end
   end
   
+  def test_generate_app_with_vegas_and_default_bin
+    run_generator('sinatra_app', [APP_ROOT, '--vegas'], sources)
+    assert_basic_paths_and_files('spec')
+    assert_generated_file "bin/#{app_name}" do |app_contents|
+      assert_match("Vegas::Runner.new(#{app_name.classify}, '#{app_name}')", app_contents)
+    end
+  end
+  
+  def test_generate_app_with_vegas_and_different_bin_name
+    run_generator('sinatra_app', [APP_ROOT, '--vegas=other_bin'], sources)
+    assert_basic_paths_and_files('spec')
+    assert_generated_file "bin/other_bin" do |app_contents|
+      assert_match("Vegas::Runner.new(#{app_name.classify}, 'other_bin')", app_contents)
+    end
+  end
+  
   private
   def assert_basic_paths_and_files(spec_or_test = 'spec')
     assert_directory_exists 'lib'

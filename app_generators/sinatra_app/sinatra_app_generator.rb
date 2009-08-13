@@ -29,7 +29,8 @@ class SinatraAppGenerator < RubiGen::Base
                 :install_scripts, 
                 :cap, 
                 :actions,
-                :middleware
+                :middleware,
+                :bin_name
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -66,6 +67,11 @@ class SinatraAppGenerator < RubiGen::Base
         m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
       else
         m.template "lib/app.rb.erb", "#{app_name}.rb"
+      end
+
+      if options[:bin]
+        m.directory "bin"
+        m.template "bin/app.erb", "bin/#{bin_name}", {:chmod => 0755}
       end
 
       if vendor
@@ -119,6 +125,7 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
     opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
     opts.on("--middleware=rack-middleware", Array, "Specify Rack Middleware to be required and included (comma delimited)") {|o| options[:middleware] = o }
+    opts.on("--vegas=[bin_name]", "--bin=[bin_name]", "Create an executable bin using Vegas. Pass an optional bin_name") {|o| options[:bin] = true; options[:bin_name] = o }
   end
 
   def extract_options
@@ -135,6 +142,7 @@ class SinatraAppGenerator < RubiGen::Base
     self.view_framework  = options[:view_framework] || 'haml'
     self.install_scripts = options[:scripts] || false
     self.middleware      = options[:middleware] ? options[:middleware].reject {|m| m.blank? } : []
+    self.bin_name        = options[:bin_name] || app_name
   end
 
   def klass_name

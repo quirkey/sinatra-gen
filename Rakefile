@@ -3,10 +3,11 @@ require File.dirname(__FILE__) + '/lib/sinatra-gen'
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('sinatra-gen', SinatraGen::VERSION) do |p|
+$hoe = Hoe.spec('sinatra-gen') do |p|
   p.developer('Aaron Quint', 'aaron@quirkey.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.rubyforge_name       = 'quirkey'
+  p.version              = SinatraGen::VERSION
   p.extra_deps         = [
     ['rubigen','>= 1.5.2'],
     ['sinatra', '>= 0.9.2'],

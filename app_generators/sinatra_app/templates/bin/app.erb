@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require File.join(File.dirname(__FILE__), '..', <%- unless tiny -%>'lib', <%- end -%>'<%= app_name %>.rb')
+require 'vegas'
+  
+Vegas::Runner.new(<%= app_klass %>, '<%= bin_name %>')
