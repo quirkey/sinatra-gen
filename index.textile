@@ -60,18 +60,39 @@ Will be added you your app as:
 
 {% highlight ruby %}
 
-  get '/' do
-  end
-  
-  post '/:id' do
-  end
-  
-  put '/update/*' do
-  end
+get '/' do
+end
+
+post '/:id' do
+end
+
+put '/update/*' do
+end
 
 {% endhighlight %}
 
-It will also generate test skeletons in the test framework of your choosing.
+It will also generate test stubs in the test framework of your choosing.
+
+h4. Middleware
+
+You can specify middleware to include by passing the filename(s) or class name(s), seperated by commas.
+
+{% highlight bash %}
+$ sinatra-gen myapp --middleware=rack/flash,Rack::Cache
+{% endhighlight %}
+  
+Will place both the 'require' and 'use' statements in your app.
+
+{% highlight ruby %}
+require 'rack/flash'
+require 'rack/cache'
+
+#...
+
+use Rack::Flash
+use Rack::Cache
+{% endhighlight %}
+
 
 h3(#options). Options
 
@@ -99,9 +120,9 @@ h3(#dependencies). Dependencies
 sinatra-gen requires:
 
 * rubygems >= 1.3.1
-* rubigen >= 1.5.2
-* sinatra >= 0.9.1
-* rack-test >= 0.1.0
+* rubigen = 1.5.2
+* sinatra >= 0.9.4
+* rack-test >= 0.4.1
 
 If you want to use the @--init@ option, you need to have git installed and on your path.
 
