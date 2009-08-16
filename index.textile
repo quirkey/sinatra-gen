@@ -22,7 +22,7 @@ h3(#what). What
 
 sinatra-gen generates a common file structure and basic app files for a web app utilizing the sinatra framework.
 
-For more information on sinatra, check out "Sinatra's homepage.":http://sinatrarb.com
+For more information on sinatra, check out "Sinatra's homepage.":http://www.sinatrarb.com
 
 h3(#why). Why
 
