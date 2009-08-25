@@ -4,14 +4,14 @@ $:.unshift File.join(File.dirname(__FILE__), '..', 'vendor', 'sinatra', 'lib')
 require 'sinatra'
 require 'rack/test'
 
+require File.join(File.dirname(__FILE__), '..', <%- unless tiny -%>'lib', <%- end -%>'<%= app_name %>.rb')
+
 <%= app_klass -%>.set(
   :environment => :test,
   :run => false,
   :raise_errors => true,
   :logging => false
 )
-
-require File.join(File.dirname(__FILE__), '..', <%- unless tiny -%>'lib', <%- end -%>'<%= app_name %>.rb')
 
 module TestHelper
   
