@@ -9,19 +9,19 @@ class <%= klass_name -%>Test < Test::Unit::TestCase
       setup do
         <%= meth %> '<%= path %>'
       end
-      
+
       should "respond" do
         assert body
       end
     end
-    
+
     <%- end -%>
     <%- else -%>
     context "getting the index" do
       setup do
         get '/'
       end
-      
+
       should "respond" do
         assert body
       end

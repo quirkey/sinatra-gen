@@ -18,16 +18,16 @@ class SinatraAppGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_accessor :app_name, 
-                :vendor, 
-                :tiny, 
-                :git, 
-                :git_init, 
-                :heroku, 
-                :test_framework, 
-                :view_framework, 
-                :install_scripts, 
-                :cap, 
+  attr_accessor :app_name,
+                :vendor,
+                :tiny,
+                :git,
+                :git_init,
+                :heroku,
+                :test_framework,
+                :view_framework,
+                :install_scripts,
+                :cap,
                 :actions,
                 :middleware,
                 :bin_name
@@ -45,23 +45,23 @@ class SinatraAppGenerator < RubiGen::Base
     record do |m|
       # Ensure appropriate folder(s) exists
       m.directory ''
-      
+
       if git_init
         m.run("#{git} init")
-      end      
+      end
 
       m.template 'config.ru.erb', 'config.ru'
       m.template 'Rakefile.erb' , 'Rakefile'
-      
+
       test_dir = (tests_are_specs? ? 'spec' : 'test')
-      
+
       unless tiny
         BASEDIRS.each { |path| m.directory path }
         m.directory test_dir
         m.file     'config.yml', 'config.yml'
         m.template 'lib/app.rb.erb', "lib/#{app_name}.rb"
         m.template 'test/test_helper.rb.erb', "#{test_dir}/#{test_dir}_helper.rb"
-        m.template "test/test_app_#{test_framework}.rb.erb", 
+        m.template "test/test_app_#{test_framework}.rb.erb",
                    "#{test_dir}/#{(tests_are_specs? ? "#{app_name}_spec" : "test_#{app_name}")}.rb"
         m.template "views/#{view_framework}_index.erb", "views/index.#{view_framework}"
         m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
@@ -78,7 +78,7 @@ class SinatraAppGenerator < RubiGen::Base
         m.directory 'vendor'
         if git_init || File.exists?(File.join(@destination_root, '.git'))
           command = "#{git} submodule add #{SINATRA_GIT_URL} vendor/sinatra"
-        else         
+        else
           command = "#{git} clone #{SINATRA_GIT_URL} vendor/sinatra"
         end
         m.run(command)
@@ -93,11 +93,11 @@ class SinatraAppGenerator < RubiGen::Base
       if install_scripts
         m.dependency "install_rubigen_scripts", [destination_root, 'sinatra-gen'], :shebang => options[:shebang], :collision => :force
       end
-      
+
       if heroku
         m.run("#{heroku} create #{app_name}")
       end
-      
+
     end
   end
 
@@ -156,7 +156,7 @@ class SinatraAppGenerator < RubiGen::Base
   def parse_actions(*action_args)
     @actions = action_args.flatten.collect { |a| a.split(':', 2) }
   end
-  
+
   def tests_are_specs?
     ['rspec','spec','bacon'].include?(test_framework)
   end

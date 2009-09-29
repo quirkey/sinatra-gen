@@ -3,13 +3,13 @@ require 'test_helper'
 class <%= klass_name -%>Test < Test::Unit::TestCase
 
   <%- unless actions.empty? -%>
-  <% actions.each do |meth, path| %>  
+  <% actions.each do |meth, path| %>
   def test_<%= meth %>_<%= path.to_s.gsub(/[^a-z0-9\_]/, '') %>_should
     <%= meth %> '<%= path %>'
   end
 
   <%- end -%>
-  <%- else -%>  
+  <%- else -%>
   def test_my_default
     get '/'
   end

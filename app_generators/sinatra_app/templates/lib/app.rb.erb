@@ -33,8 +33,8 @@ end
 
 <%- else -%>
 class <%= klass_name -%> < Sinatra::Application
-  
-  set :root, APP_ROOT  
+
+  set :root, APP_ROOT
   <%- middleware.each do |m| -%>
   use <%= m.to_s.classify %>
   <%- end -%>

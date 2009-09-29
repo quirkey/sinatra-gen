@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 describe '<%= klass_name %>' do
-  
+
   <%- unless actions.empty? -%>
-  <% actions.each do |meth, path| %>  
+  <% actions.each do |meth, path| %>
   it 'should <%= meth %> <%= path %>' do
     <%= meth %> '<%= path %>'
     last_response.should.be.ok
   end
-  
+
   <%- end -%>
-  <%- else -%>  
+  <%- else -%>
   it 'should load the index' do
     get '/'
-    last_response.should.be.ok  
+    last_response.should.be.ok
   end
   <%- end -%>
-  
+
 end
