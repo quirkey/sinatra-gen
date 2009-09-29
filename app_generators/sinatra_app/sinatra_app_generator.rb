@@ -25,6 +25,7 @@ class SinatraAppGenerator < RubiGen::Base
                 :git_init,
                 :heroku,
                 :test_framework,
+                :story_framework,
                 :view_framework,
                 :install_scripts,
                 :cap,
@@ -65,6 +66,13 @@ class SinatraAppGenerator < RubiGen::Base
                    "#{test_dir}/#{(tests_are_specs? ? "#{app_name}_spec" : "test_#{app_name}")}.rb"
         m.template "views/#{view_framework}_index.erb", "views/index.#{view_framework}"
         m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
+
+        case options[:story_framework]
+        when 'cucumber'
+          m.directory 'features'
+          m.directory 'features/support'
+          m.template 'features/support/env.rb.erb', 'features/support/env.rb'
+        end
       else
         m.template "lib/app.rb.erb", "#{app_name}.rb"
       end
@@ -123,6 +131,7 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
     opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
     opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
+    opts.on("--story=story_framework", String, "Specify your story framework (cucumber)") {|o| options[:story_framework] = o }
     opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
     opts.on("--middleware=rack-middleware", Array, "Specify Rack Middleware to be required and included (comma delimited)") {|o| options[:middleware] = o }
     opts.on("--vegas=[bin_name]", "--bin=[bin_name]", "Create an executable bin using Vegas. Pass an optional bin_name") {|o| options[:bin] = true; options[:bin_name] = o }
@@ -139,6 +148,7 @@ class SinatraAppGenerator < RubiGen::Base
     self.heroku          = options[:heroku] ? `which heroku`.strip : false
     self.git_init        = options[:init] || !!heroku || false
     self.test_framework  = options[:test_framework] || 'bacon'
+    self.story_framework = options[:story_framework]
     self.view_framework  = options[:view_framework] || 'haml'
     self.install_scripts = options[:scripts] || false
     self.middleware      = options[:middleware] ? options[:middleware].reject {|m| m.blank? } : []
@@ -146,7 +156,7 @@ class SinatraAppGenerator < RubiGen::Base
   end
 
   def klass_name
-    app_name.classify
+    app_name.tr('.','_').classify
   end
 
   def app_klass
