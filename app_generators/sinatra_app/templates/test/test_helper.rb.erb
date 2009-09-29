@@ -14,20 +14,19 @@ require File.join(File.dirname(__FILE__), '..', <%- unless tiny -%>'lib', <%- en
 )
 
 module TestHelper
-  
+
   def app
-    # change to your app class if using the 'classy' style
-    Sinatra::Application.new
+    <% if tiny %>Sinatra::Application.new<% else %><%= app_klass %><% end %>
   end
-  
+
   def body
     last_response.body
   end
-  
+
   def status
     last_response.status
   end
-  
+
   include Rack::Test::Methods
 
 end
