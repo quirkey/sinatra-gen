@@ -115,6 +115,15 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
     end
   end
 
+  def test_generate_app_with_integration_cucumber_option
+    run_generator('sinatra_app', [APP_ROOT, '--integration=cucumber'], sources)
+    assert_basic_paths_and_files('features')
+    assert_basic_paths_and_files('features/support')
+    assert_generated_file 'features/support/env.rb' do |env_contents|
+      assert_match(/World/, env_contents)
+    end
+  end
+
   def test_generate_app_with_views_erb_option
     run_generator('sinatra_app', [APP_ROOT, '--views=erb'], sources)
     assert_basic_paths_and_files('spec')
