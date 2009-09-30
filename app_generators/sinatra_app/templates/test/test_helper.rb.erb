@@ -16,7 +16,7 @@ require File.join(File.dirname(__FILE__), '..', <%- unless tiny -%>'lib', <%- en
 module TestHelper
 
   def app
-    <% if tiny %>Sinatra::Application.new<% else %><%= app_klass %><% end %>
+    <%= app_klass %>.new
   end
 
   def body
