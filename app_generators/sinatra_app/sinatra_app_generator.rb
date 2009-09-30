@@ -25,7 +25,7 @@ class SinatraAppGenerator < RubiGen::Base
                 :git_init,
                 :heroku,
                 :test_framework,
-                :story_framework,
+                :integration_framework,
                 :view_framework,
                 :install_scripts,
                 :cap,
@@ -67,11 +67,12 @@ class SinatraAppGenerator < RubiGen::Base
         m.template "views/#{view_framework}_index.erb", "views/index.#{view_framework}"
         m.template "views/#{view_framework}_layout.erb", "views/layout.#{view_framework}" unless view_framework == 'builder'
 
-        case options[:story_framework]
+        case options[:integration_framework]
         when 'cucumber'
           m.directory 'features'
           m.directory 'features/support'
           m.template 'features/support/env.rb.erb', 'features/support/env.rb'
+          m.directory 'features/step_definitions'
         end
       else
         m.template "lib/app.rb.erb", "#{app_name}.rb"
@@ -131,7 +132,7 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
     opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
     opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
-    opts.on("--story=story_framework", String, "Specify your story framework (cucumber)") {|o| options[:story_framework] = o }
+    opts.on("--integration=integration_framework", String, "Specify your integration framework (cucumber)") {|o| options[:integration_framework] = o }
     opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
     opts.on("--middleware=rack-middleware", Array, "Specify Rack Middleware to be required and included (comma delimited)") {|o| options[:middleware] = o }
     opts.on("--vegas=[bin_name]", "--bin=[bin_name]", "Create an executable bin using Vegas. Pass an optional bin_name") {|o| options[:bin] = true; options[:bin_name] = o }
@@ -141,18 +142,18 @@ class SinatraAppGenerator < RubiGen::Base
     # for each option, extract it into a local variable (and create an "attr_reader :author" at the top)
     # Templates can access these value via the attr_reader-generated methods, but not the
     # raw instance variable value.
-    self.vendor          = options[:vendor]
-    self.tiny            = options[:tiny]
-    self.cap             = options[:cap]
-    self.git             = options[:git] || `which git`.strip
-    self.heroku          = options[:heroku] ? `which heroku`.strip : false
-    self.git_init        = options[:init] || !!heroku || false
-    self.test_framework  = options[:test_framework] || 'bacon'
-    self.story_framework = options[:story_framework]
-    self.view_framework  = options[:view_framework] || 'haml'
-    self.install_scripts = options[:scripts] || false
-    self.middleware      = options[:middleware] ? options[:middleware].reject {|m| m.blank? } : []
-    self.bin_name        = options[:bin_name] || app_name
+    self.vendor                = options[:vendor]
+    self.tiny                  = options[:tiny]
+    self.cap                   = options[:cap]
+    self.git                   = options[:git] || `which git`.strip
+    self.heroku                = options[:heroku] ? `which heroku`.strip : false
+    self.git_init              = options[:init] || !!heroku || false
+    self.test_framework        = options[:test_framework] || 'bacon'
+    self.integration_framework = options[:integration_framework]
+    self.view_framework        = options[:view_framework] || 'haml'
+    self.install_scripts       = options[:scripts] || false
+    self.middleware            = options[:middleware] ? options[:middleware].reject {|m| m.blank? } : []
+    self.bin_name              = options[:bin_name] || app_name
   end
 
   def klass_name
