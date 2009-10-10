@@ -43,6 +43,9 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   def test_generate_app_with_heroku_option
     run_generator('sinatra_app', [APP_ROOT, '--heroku'], sources)
     assert_basic_paths_and_files('spec')
+    assert_generated_file '.gems' do |contents|
+      assert_match(/sinatra/, contents)
+    end
     assert_directory_exists '.git'
     assert_generated_file   '.git/config' do |config_contents|
       assert_match(/\[remote "heroku"\]/, config_contents)      

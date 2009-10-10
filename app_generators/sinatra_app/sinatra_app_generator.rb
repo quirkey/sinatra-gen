@@ -104,6 +104,7 @@ class SinatraAppGenerator < RubiGen::Base
       end
 
       if heroku
+        m.template 'dot_gems', '.gems'
         m.run("#{heroku} create #{app_name}")
       end
 
