@@ -35,7 +35,7 @@ class TestSinatraAppGenerator < Test::Unit::TestCase
   end
   
   def test_generate_app_with_init_option
-    run_generator('sinatra_app', [APP_ROOT, '-i'], sources)
+    run_generator('sinatra_app', [APP_ROOT, '--init'], sources)
     assert_basic_paths_and_files('spec')
     assert_directory_exists '.git'
   end
