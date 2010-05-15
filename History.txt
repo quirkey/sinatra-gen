@@ -1,3 +1,8 @@
+== 0.4.1
+
+* Cucumber support with --integration_framework=cucumber [Thanks Rob Holland]
+* Explicitly set RACK_ENV in the test helper
+
 == 0.4.0 2009-08-13
 
 * Unless --tiny is specified generate an app that < Sinatra::Application
