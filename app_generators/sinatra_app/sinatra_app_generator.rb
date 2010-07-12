@@ -132,7 +132,7 @@ class SinatraAppGenerator < RubiGen::Base
     opts.on("--cap", "Adds config directory with basic capistrano deploy.rb") {|o| options[:cap] = o }
     opts.on("--scripts", "Install the rubigen scripts (script/generate, script/destroy)")  {|o| options[:scripts] = o }
     opts.on("--git /path/to/git", "Specify a different path for 'git'") {|o| options[:git] = o }
-    opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/test)") {|o| options[:test_framework] = o }
+    opts.on("--test=test_framework", String, "Specify your testing framework (bacon (default)/rspec/spec/shoulda/unit)") {|o| options[:test_framework] = o }
     opts.on("--integration=integration_framework", String, "Specify your integration framework (cucumber)") {|o| options[:integration_framework] = o }
     opts.on("--views=view_framework", "Specify your view framework (haml (default)/erb/builder)")  {|o| options[:view_framework] = o }
     opts.on("--middleware=rack-middleware", Array, "Specify Rack Middleware to be required and included (comma delimited)") {|o| options[:middleware] = o }
