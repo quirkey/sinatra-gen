@@ -25,20 +25,20 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rubigen>, ["= 1.5.2"])
+      s.add_runtime_dependency(%q<rubigen>, ["= 1.5.8"])
       s.add_runtime_dependency(%q<sinatra>, [">= 0.9.4"])
       s.add_runtime_dependency(%q<rack-test>, [">= 0.4.1"])
       s.add_development_dependency(%q<newgem>, [">= 1.5.2"])
       s.add_development_dependency(%q<hoe>, [">= 2.3.3"])
     else
-      s.add_dependency(%q<rubigen>, ["= 1.5.2"])
+      s.add_dependency(%q<rubigen>, ["= 1.5.8"])
       s.add_dependency(%q<sinatra>, [">= 0.9.4"])
       s.add_dependency(%q<rack-test>, [">= 0.4.1"])
       s.add_dependency(%q<newgem>, [">= 1.5.2"])
       s.add_dependency(%q<hoe>, [">= 2.3.3"])
     end
   else
-    s.add_dependency(%q<rubigen>, ["= 1.5.2"])
+    s.add_dependency(%q<rubigen>, ["= 1.5.8"])
     s.add_dependency(%q<sinatra>, [">= 0.9.4"])
     s.add_dependency(%q<rack-test>, [">= 0.4.1"])
     s.add_dependency(%q<newgem>, [">= 1.5.2"])
