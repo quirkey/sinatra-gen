@@ -1,0 +1,2 @@
+0.4.1:
+- updated rubigen to the latest version 1.5.8 (solves undefined method write_inheritable_attribute error)
