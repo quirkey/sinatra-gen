@@ -12,7 +12,7 @@ $hoe = Hoe.spec('sinatra-gen') do |p|
 
   p.version              = SinatraGen::VERSION
   p.extra_deps         = [
-    ['rubigen','=1.5.2'],
+    ['rubigen','=1.5.8'],
     ['sinatra', '>= 0.9.4'],
     ['rack-test', '>= 0.4.1']
   ]
